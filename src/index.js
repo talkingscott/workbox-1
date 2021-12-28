@@ -12,7 +12,12 @@ if ('serviceWorker' in navigator) {
     console.log('Add event listener');
     window.addEventListener('load', () => {
         console.log('Register service worker');
-        navigator.serviceWorker.register('/service-worker.js');
+        navigator.serviceWorker.register('/service-worker.js').then((reg) => {
+            console.log('Service worker registered', reg);
+        }).catch((err) => {
+            console.log('Service worker registration failed', err);
+            alert(err);
+        });
 
         console.log('Attach event handler');
         const submit = document.getElementById('submit-barcode');
