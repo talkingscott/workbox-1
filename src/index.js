@@ -7,9 +7,10 @@
  *
  * This is the webpack default entry point.
  */
+
 if ('serviceWorker' in navigator) {
     // Use the window load event to keep the page load performant
-    console.log('Add event listener');
+    console.log('Add load event listener');
     window.addEventListener('load', () => {
         console.log('Register service worker');
         navigator.serviceWorker.register('/service-worker.js').then((reg) => {
@@ -19,7 +20,7 @@ if ('serviceWorker' in navigator) {
             alert(err);
         });
 
-        console.log('Attach event handler');
+        console.log('Add click event handler');
         const submit = document.getElementById('submit-barcode');
         submit.addEventListener('click', (ev) => {
             const input = document.getElementById('barcode');
@@ -44,4 +45,29 @@ if ('serviceWorker' in navigator) {
             });
         });
     });
+
+    console.log('Add beforeinstallprompt event listener');
+    // Initialize deferredPrompt for use later to show browser install prompt.
+//    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+//        e.preventDefault();
+        // Stash the event so it can be triggered later.
+//        deferredPrompt = e;
+        // Update UI notify the user they can install the PWA
+//        showInstallPromotion();
+        // Optionally, send analytics event that PWA install promo was shown.
+        console.log(`'beforeinstallprompt' event was fired.`);
+    });
+
+    console.log('Add appinstalled event listener');
+    window.addEventListener('appinstalled', () => {
+        // Hide the app-provided install promotion
+//        hideInstallPromotion();
+        // Clear the deferredPrompt so it can be garbage collected
+//        deferredPrompt = null;
+        // Optionally, send analytics event to indicate successful install
+        console.log('PWA has been installed');
+      });
 }
