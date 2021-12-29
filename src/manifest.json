@@ -1,4 +1,5 @@
 {
+  "name": "Submit Barcode",
   "short_name": "Submit Barcode",
   "icons": [
     {
@@ -13,6 +14,7 @@
     }
   ],
   "start_url": "/",
-  "display": "minimal-ui",
-  "description": "Submit a Manually Entered Barcode"
+  "display": "standalone",
+  "description": "Submit a Manually Entered Barcode",
+  "background_color": "#FFFFFF"
 }
