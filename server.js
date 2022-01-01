@@ -22,10 +22,16 @@ const port = process.env.PORT || 3000;
 // };
 
 apiv1.post('/barcode', (req, res, next) => {
-    console.log(req.body);
+    const received = Date.now();
+    const ip = req.ip;
+    const payload = req.body;
+    const data = { ...payload, ...{ ip, received } }
+    console.log(data);
     res.sendStatus(200);
     res.end();
 });
+
+app.enable('trust proxy');
 
 app.use(morgan('combined'));
 app.use(express.json());

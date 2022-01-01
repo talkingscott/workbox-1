@@ -6,6 +6,8 @@ An attempt to get a PWA running with Workbox.
 * Added webpack for ESM import rewriting and manifest injection
 * Added background sync
 * Added manifest, icons, and event listeners for installation
+* Added install button
+* Added UI for upgrading the service worker
 
 The PWA UI is a simple pseudo-form that accepts a "barcode" as text input and provides a button to submit the value to the server API.
 

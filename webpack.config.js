@@ -20,7 +20,11 @@ module.exports = {
       patterns: [
         { from: 'src/icon-192.png', to: 'icon-192.png' },
         { from: 'src/icon-512.png', to: 'icon-512.png' },
-        { from: 'src/manifest.json', to: 'manifest.json' },
+        { from: 'src/icon-180.png', to: 'icon-180.png' },
+        { from: 'src/maskable-icon-192.png', to: 'maskable-icon-192.png' },
+        { from: 'src/maskable-icon-512.png', to: 'maskable-icon-512.png' },
+        { from: 'src/maskable-icon-180.png', to: 'maskable-icon-180.png' },
+        { from: 'src/manifest.webmanifest', to: 'manifest.webmanifest' },
       ],
     }),
   ],

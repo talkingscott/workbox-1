@@ -29,6 +29,15 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { BackgroundSyncPlugin } from 'workbox-background-sync';
 
 /**
+ * Handle UI requests to update.
+ */
+addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+/**
  * This implements pre-caching.
  */
 precacheAndRoute(self.__WB_MANIFEST);
@@ -102,7 +111,7 @@ registerRoute(
 
 // Plugin to sync failed requests
 const bgSyncPlugin = new BackgroundSyncPlugin('submitBarcodeQueue', {
-  maxRetentionTime: 31 * 24 * 60 // Retry for max of 31 days (specified in minutes)
+    maxRetentionTime: 31 * 24 * 60 // Retry for max of 31 days (specified in minutes)
 });
 
 // Plugin to turn a server 5xx response into a failed request

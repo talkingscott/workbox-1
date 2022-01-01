@@ -9,13 +9,29 @@
       -- This template is processed by webpack
       -->
     <meta charset="utf-8"/>
+    <meta name="theme-color" content="#ffffff">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/maskable-icon-180.png">
+    <link rel="manifest" href="/manifest.webmanifest">
   </head>
   <body>
-      <h2><%= htmlWebpackPlugin.options.title %></h2>
-      <label for="barcode">Barcode</label>
-      <input id="barcode" type="text">
-      <button id="submit-barcode">Submit</button>
+    <h2><%= htmlWebpackPlugin.options.title %></h2>
+    <label for="barcode">Barcode</label>
+    <input id="barcode" type="text">
+    <button id="submit-barcode">Submit</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="install-ui">
+      <label for="install">This PWA can be installed</label>
+      <button id="install">Install</button>
+    </div>
+    <br>
+    <br>
+    <div id="update-ui">
+      <label for="update">There is an update available</label>
+      <button id="update">Update</button>
+    </div>
   </body>
 </html>
