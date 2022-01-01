@@ -3,3 +3,4 @@ dist
 node_modules
 *.pem
 push_to_hack.sh
+requests.ndjson

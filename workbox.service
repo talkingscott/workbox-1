@@ -1,0 +1,15 @@
+[Unit]
+Description=Workbox with Webpack
+After=network.target
+
+[Service]
+Type=simple
+User=ec2-user
+Environment=PORT=6666
+WorkingDirectory=/home/ec2-user/workbox-1
+ExecStart=/home/ec2-user/.nvm/versions/node/v16.13.1/bin/node /home/ec2-user/workbox-1/server.js
+Restart=on-falure
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target

@@ -19,6 +19,10 @@ The server is a simple Express app that serves the output of the webpack build a
 
 The webpack configuration is as spare as possible, relying on many default values.
 
+## Behavior Notes
+
+Per https://caniuse.com/?search=a2hs, installation only works on a subset of browser/OS combinations.  Per https://caniuse.com/?search=background%20sync, only Chrome-based browsers support background sync.
+
 ## Local Testing
 
 ### localhost
