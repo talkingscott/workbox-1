@@ -73,32 +73,46 @@ if ('serviceWorker' in navigator) {
         const submit = document.getElementById('submit-qrcode');
         submit.addEventListener('click', (ev) => {
             console.log('Received submit click event');
-            const input = document.getElementById('qrcode');
-            const qrcode = input.value;
-            const location = 'placeholder';
-            const user = 'placeholder';
-            const submitted = Date.now();
-            console.log('Submit qrcode', qrcode, submitted);
-            fetch('/api/v1/qrcode', {
-                method: 'POST',
-                mode: 'cors', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                  'Content-Type': 'application/json'
-                  // 'Content-Type': 'application/x-www-form-urlencoded',
+
+            if (!navigator.geolocation) {
+                console.log('Geolocation is not supported by your browser');
+            }
+            else {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    const { latitude, longitude, accuracy } = pos.coords;
+                    const input = document.getElementById('qrcode');
+                    const qrcode = input.value;
+                    const user = 'placeholder';
+                    const submitted = Date.now();
+                    console.log('Submit qrcode', qrcode, submitted);
+                    fetch('/api/v1/qrcode', {
+                        method: 'POST',
+                        mode: 'cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                          'Content-Type': 'application/json'
+                          // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                        body: JSON.stringify({ qrcode, latitude, longitude, accuracy, user, submitted }), // body data type must match "Content-Type" header
+                    }).then((response) => {
+                        input.value = '';
+                        document.getElementById('submit-qrcode').hidden = true;
+                        console.log('Data sent?', response.ok);
+                    }).catch((err) => {
+                        input.value = '';
+                        console.log('Send error', err);
+                    });
                 },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify({ qrcode, location, user, submitted }), // body data type must match "Content-Type" header
-            }).then((response) => {
-                input.value = '';
-                document.getElementById('submit-qrcode').hidden = true;
-                console.log('Data sent?', response.ok);
-            }).catch((err) => {
-                input.value = '';
-                console.log('Send error', err);
-            });
+                (err) => {
+                    alert(`Error getting location: ${err.code} ${err.message}`);
+                },
+                {
+                    enableHighAccuracy: true,
+                },);
+            }
         });
 
         console.log('Add install click event handler');

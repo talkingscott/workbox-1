@@ -9,6 +9,7 @@ An attempt to get a PWA running with Workbox.
 * Added install button
 * Added UI for upgrading the service worker
 * Added qr-scanner package to actually scan QR codes
+* Added geolocation data
 
 The PWA UI is a simple pseudo-form that accepts a QR code as input from a QR code scanning package and provides a button to submit the value to the server API.
 
@@ -25,6 +26,10 @@ The webpack configuration is as spare as possible, relying on many default value
 Per https://caniuse.com/?search=a2hs, installation only works on a subset of browser/OS combinations.  Per https://caniuse.com/?search=background%20sync, only Chrome-based browsers support background sync.  _However_, workbox background sync documentation suggests that they primitively polyfill by attempting to send all queued requests whenever the service worker is started.
 
 On an newish Pixel running Android 12, there was never an option to install the app.  In fact, there was never an option to install any app, including https://developers.google.com.  The root cause was no default Home (launcher).  This phone replaced another Pixel.  Apps were transferred, but the default Home never set.  Upon restart, the phone always asked the user to select a launcher.  Anyway, once a default launcher was configured, everything started working.
+
+Remember to allow the app to use the camera and location!  If you accidentally deny access, the ease or difficulty of reversing that choice varies based on OS and browser.
+
+The QR scanner package seems to have a bias toward motion.  In order to scan, increase or decrease the distance between the code and camera in a smooth, steady motion.
 
 ## Local Testing
 
