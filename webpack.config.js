@@ -25,6 +25,7 @@ module.exports = {
         { from: 'src/maskable-icon-512.png', to: 'maskable-icon-512.png' },
         { from: 'src/maskable-icon-180.png', to: 'maskable-icon-180.png' },
         { from: 'src/manifest.webmanifest', to: 'manifest.webmanifest' },
+        { from: 'src/qr-scanner-worker.min.js', to: 'qr-scanner-worker.min.js' },
       ],
     }),
   ],

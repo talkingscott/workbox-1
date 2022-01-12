@@ -7,7 +7,7 @@
  *
  * This is the webpack default entry point.
  */
-
+import QrScanner from 'qr-scanner';
 import { Workbox } from 'workbox-window';
 
 // Initialize deferredPrompt for use later to show browser install prompt.
@@ -70,16 +70,16 @@ if ('serviceWorker' in navigator) {
         wb.register();
 
         console.log('Add submit click event handler');
-        const submit = document.getElementById('submit-barcode');
+        const submit = document.getElementById('submit-qrcode');
         submit.addEventListener('click', (ev) => {
             console.log('Received submit click event');
-            const input = document.getElementById('barcode');
-            const barcode = input.value;
+            const input = document.getElementById('qrcode');
+            const qrcode = input.value;
             const location = 'placeholder';
             const user = 'placeholder';
             const submitted = Date.now();
-            console.log('Submit barcode', barcode, submitted);
-            fetch('/api/v1/barcode', {
+            console.log('Submit qrcode', qrcode, submitted);
+            fetch('/api/v1/qrcode', {
                 method: 'POST',
                 mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -90,9 +90,10 @@ if ('serviceWorker' in navigator) {
                 },
                 redirect: 'follow', // manual, *follow, error
                 referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify({ barcode, location, user, submitted }), // body data type must match "Content-Type" header
+                body: JSON.stringify({ qrcode, location, user, submitted }), // body data type must match "Content-Type" header
             }).then((response) => {
                 input.value = '';
+                document.getElementById('submit-qrcode').hidden = true;
                 console.log('Data sent?', response.ok);
             }).catch((err) => {
                 input.value = '';
@@ -138,7 +139,28 @@ if ('serviceWorker' in navigator) {
             });
     
             wb.messageSkipWaiting();
-        });        
+        });
+
+        console.log('Set up QR code scanner');
+        const scanVideo = document.getElementById('scan-video');
+        const qrScanner = new QrScanner(scanVideo, (result) => {
+            console.log('decoded qr code:', result);
+            document.getElementById('qrcode').value = result;
+            document.getElementById('submit-qrcode').hidden = false;
+            document.getElementById('rescan').hidden = false;
+            qrScanner.stop();
+        });
+        qrScanner.WORKER_PATH = 'qr-scanner-worker.min.js';
+        qrScanner.start();
+
+        console.log('Add rescan click event handler');
+        const rescan = document.getElementById('rescan');
+        rescan.addEventListener('click', (ev) => {
+            console.log('Received rescan click event');
+            document.getElementById('qrcode').value = '';
+            document.getElementById('submit-qrcode').hidden = true;
+            qrScanner.start();
+        });
     });
 
     console.log('Add beforeinstallprompt event listener');

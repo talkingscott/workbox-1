@@ -16,11 +16,13 @@
   </head>
   <body>
     <h2><%= htmlWebpackPlugin.options.title %></h2>
-    <label for="barcode">Barcode</label>
-    <input id="barcode" type="text">
-    <button id="submit-barcode">Submit</button>
+    <label for="qrcode">Code</label>
+    <input id="qrcode" type="text" readonly placeholder="Scanned data will appear here">
+    <button id="submit-qrcode" hidden>Submit</button>
+    <button id="rescan" hidden>Rescan</button>
     <br>
     <br>
+    <video id="scan-video"></video>
     <br>
     <br>
     <div id="install-ui" hidden>

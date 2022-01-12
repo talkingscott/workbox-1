@@ -28,7 +28,7 @@ const storeRequest = async (request) => {
     }
 };
 
-apiv1.post('/barcode', (req, res, next) => {
+apiv1.post('/qrcode', (req, res, next) => {
     const received = Date.now();
     const ip = req.ip;
     const payload = req.body;

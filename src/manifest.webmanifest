@@ -1,6 +1,6 @@
 {
-  "name": "Submit Barcode",
-  "short_name": "Submit Barcode",
+  "name": "Submit QR Ccode",
+  "short_name": "Submit QR code",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -43,7 +43,7 @@
   "id": "/",
   "scope": "/",
   "display": "standalone",
-  "description": "Submit a Manually Entered Barcode",
+  "description": "Submit a scanned QR code",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF"
 }
